@@ -30,6 +30,10 @@ const useStyles = makeStyles(theme => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
+  title: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  }
 }))
 
 export default function StyledAppBar(props) {
@@ -54,7 +58,8 @@ export default function StyledAppBar(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
+          <img src="https://material-ui.com/static/images/material-ui-logo.svg" alt="Kitten" height="25" width="25"/>
+          <Typography variant="h6" noWrap className={classes.title}>
             {props.appName}
           </Typography>
         </Toolbar>
