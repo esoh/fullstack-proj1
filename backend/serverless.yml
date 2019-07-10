@@ -1,0 +1,19 @@
+service: employee-service
+tenant: seansooh
+app: employee-app
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  # defaults:
+  # stage: dev
+  region: us-west-2
+  cfnRole: ${file(./config/awsArns.yml):cfnDeployRole}
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          path: /
+          method: get
