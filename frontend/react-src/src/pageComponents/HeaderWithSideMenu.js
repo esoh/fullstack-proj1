@@ -3,27 +3,17 @@ import StyledAppBar from './StyledAppBar';
 import StyledPersistentDrawer from './StyledPersistentDrawer';
 
 export default function HeaderWithSideMenu(props){
-  const [open, setOpen] = React.useState(false);
-
-  function handleDrawerOpen() {
-    setOpen(true);
-  }
-
-  function handleDrawerClose() {
-    setOpen(false);
-  }
-
   return (
     <>
       <StyledAppBar
         appName={props.appName}
-        handleDrawerOpen={handleDrawerOpen}
-        open={open}
+        handleDrawerOpen={props.handleDrawerOpen}
+        open={props.open}
       />
       <StyledPersistentDrawer
-        handleDrawerClose={handleDrawerClose}
+        handleDrawerClose={props.handleDrawerClose}
         drawerItems={props.drawerItems}
-        open={open}
+        open={props.open}
       />
     </>
   )

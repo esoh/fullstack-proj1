@@ -9,15 +9,15 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
-const drawerWidth = 240;
+import { DRAWER_WIDTH } from '../constants/display';
 
 const useStyles = makeStyles(theme => ({
   drawer: {
-    width: drawerWidth,
+    width: DRAWER_WIDTH,
     flexShrink: 0,
   },
   drawerPaper: {
-    width: drawerWidth,
+    width: DRAWER_WIDTH,
   },
   drawerHeader: {
     display: 'flex',
