@@ -8,6 +8,7 @@ import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import { Link } from 'react-router-dom';
 
 import { DRAWER_WIDTH } from '../constants/display';
 
@@ -50,9 +51,11 @@ export default function StyledPersistentDrawer(props){
       </div>
       <Divider />
       <List>
-        {props.drawerItems.map(text => (
-          <ListItem button key={text}>
-            <ListItemText primary={text} />
+        {Object.keys(props.drawerItems).map(key => (
+          <ListItem button key={key}>
+            <Link to={props.drawerItems[key]}>
+              <ListItemText primary={key} />
+            </Link>
           </ListItem>
         ))}
       </List>

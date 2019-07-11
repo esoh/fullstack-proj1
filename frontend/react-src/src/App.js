@@ -2,6 +2,8 @@ import React from 'react';
 import clsx from 'clsx';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import EmployeeList from './employees/EmployeeList';
 
 import HeaderWithSideMenu from './pageComponents/HeaderWithSideMenu';
 import { DRAWER_WIDTH } from './constants/display';
@@ -50,26 +52,33 @@ function App() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <HeaderWithSideMenu
-        appName="Employee App"
-        drawerItems={['Nothing to see here']}
-        handleDrawerOpen={handleDrawerOpen}
-        handleDrawerClose={handleDrawerClose}
-        open={drawerOpen}
-      />
+    <Router>
+      <div className={classes.root}>
+        <HeaderWithSideMenu
+          appName="Employee App"
+          drawerItems={{
+            'Employees': '/',
+          }}
+          handleDrawerOpen={handleDrawerOpen}
+          handleDrawerClose={handleDrawerClose}
+          open={drawerOpen}
+        />
 
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: drawerOpen,
-        })}
-      >
-        <div className={classes.drawerHeader} />
-        <Container maxWidth="sm">
-          Hello World!
-        </Container>
-      </main>
-    </div>
+        <main
+          className={clsx(classes.content, {
+            [classes.contentShift]: drawerOpen,
+          })}
+        >
+          <div className={classes.drawerHeader} />
+          <Container maxWidth="sm">
+            <Switch>
+              <Route exact path='/' component={EmployeeList}/>
+              <Route render={() => <Redirect to="/" />} />
+            </Switch>
+          </Container>
+        </main>
+      </div>
+    </Router>
   );
 }
 
