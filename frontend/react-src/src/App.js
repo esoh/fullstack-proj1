@@ -9,6 +9,10 @@ import HeaderWithSideMenu from './pageComponents/HeaderWithSideMenu';
 import { DRAWER_WIDTH } from './constants/display';
 import './App.css';
 
+import Amplify from 'aws-amplify';
+import awsconfig from './aws-exports';
+Amplify.configure(awsconfig);
+
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
