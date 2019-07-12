@@ -24,6 +24,18 @@ export default function EmployeePage(props){
     return newData;
   }
 
+  function onEdit(employeeId){
+    return function (event) {
+      console.log('Edit ' + employeeId);
+    }
+  }
+
+  function onDelete(employeeId){
+    return function (event) {
+      console.log('Delete ' + employeeId);
+    }
+  }
+
   return (
     <>
       <CreateFormCard title='Create an Employee:' className={classes.formCard}>
@@ -38,7 +50,13 @@ export default function EmployeePage(props){
         { ({data: { listEmployees }}, loading, error) => {
             if(error) return (<p>Error</p>);
             if(loading || !listEmployees) return (<p>Loading...</p>);
-            return (<ListEmployeesView employees={ listEmployees ? listEmployees.items : [] }/>);
+            return (
+              <ListEmployeesView
+                employees={ listEmployees ? listEmployees.items : [] }
+                onEdit={onEdit}
+                onDelete={onDelete}
+              />
+            );
           }
         }
       </Connect>
