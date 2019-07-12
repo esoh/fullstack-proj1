@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import EmployeeList from './employees/EmployeeList';
+import EmployeePage from './employees/EmployeePage';
 
 import HeaderWithSideMenu from './pageComponents/HeaderWithSideMenu';
 import { DRAWER_WIDTH } from './constants/display';
@@ -76,7 +76,7 @@ function App() {
           <div className={classes.drawerHeader} />
           <Container maxWidth="sm">
             <Switch>
-              <Route exact path='/' component={EmployeeList}/>
+              <Route exact path='/' component={EmployeePage}/>
               <Route render={() => <Redirect to="/" />} />
             </Switch>
           </Container>
