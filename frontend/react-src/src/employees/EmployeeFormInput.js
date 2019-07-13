@@ -32,6 +32,7 @@ export default function EmployeeFormInput(props) {
         InputLabelProps={{
           shrink: true,
         }}
+        value={props.values.firstName}
         onChange={props.handleChange('firstName')}
       />
       <TextField
@@ -42,6 +43,7 @@ export default function EmployeeFormInput(props) {
         InputLabelProps={{
           shrink: true,
         }}
+        value={props.values.lastName}
         onChange={props.handleChange('lastName')}
       />
     </div>

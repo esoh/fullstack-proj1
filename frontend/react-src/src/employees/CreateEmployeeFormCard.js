@@ -47,7 +47,13 @@ export default function CreateEmployeeFormCard(props) {
       className={classes.formCard}
       onSubmit={handleCreateSubmit}
     >
-      <EmployeeFormInput handleChange={handleChange}/>
+      <EmployeeFormInput
+        handleChange={handleChange}
+        values={{
+          firstName: values.firstName,
+          lastName: values.lastName,
+        }}
+      />
     </CreateFormCard>
   )
 }

@@ -5,35 +5,67 @@ import EmployeeFormInput from './EmployeeFormInput';
 import * as mutations from '../graphql/mutations';
 import EditFormDialog from '../common/EditFormDialog';
 
-export default function EditEmployeeFormDialog(props) {
+class EditEmployeeFormDialog extends React.Component {
 
-  const [values, setValues] = React.useState({
+  state = {
+    id: null,
     firstName: '',
     lastName: '',
-  });
-
-  const handleChange = name => event => {
-    setValues({ ...values, [name]: event.target.value });
   };
 
-  const addEmployee = async (firstname, lastname) => {
+  static getDerivedStateFromProps(props, state){
+    if(props.seedEmployee && (!state.id || state.id !== props.seedEmployee.id)) {
+      return {
+        ...state,
+        id: props.seedEmployee.id,
+        firstName: props.seedEmployee.firstname,
+        lastName: props.seedEmployee.lastname,
+        seeded: true,
+      };
+    }
+    return state;
+  }
+
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value
+    });
+  };
+
+  updateEmployee = async (id, firstname, lastname) => {
     const employeeInput = {
       input: {
+        id,
         firstname,
         lastname,
       }
     };
-    await API.graphql(graphqlOperation(mutations.createEmployee, employeeInput))
+    await API.graphql(graphqlOperation(mutations.updateEmployee, employeeInput))
   }
 
-  function handleSubmit(event){
-    addEmployee(values.firstName, values.lastName)
+  handleSubmit = event => {
+    this.updateEmployee(this.state.id, this.state.firstName, this.state.lastName)
+    this.props.onClose();
     event.preventDefault();
   }
 
-  return (
-    <EditFormDialog open={props.open} onClose={props.onClose} onSubmit={handleSubmit}>
-      <EmployeeFormInput handleChange={handleChange}/>
-    </EditFormDialog>
-  )
+  render() {
+    return (
+      <EditFormDialog
+        open={this.props.open}
+        onClose={this.props.onClose}
+        onSave={this.handleSubmit}
+      >
+        <EmployeeFormInput
+          handleChange={this.handleChange}
+          values={{
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+          }}
+        />
+      </EditFormDialog>
+    )
+  }
 }
+
+export default EditEmployeeFormDialog;

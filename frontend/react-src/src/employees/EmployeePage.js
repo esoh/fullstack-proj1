@@ -30,6 +30,7 @@ const onChangeEmployee = `subscription OnUpdateEmployee {
 export default function EmployeePage(props){
 
   const [editorOpen, setEditorOpen] = React.useState(false);
+  const [editEmployee, setEditEmployee] = React.useState(null);
 
   function handleOpenEditor() {
     setEditorOpen(true);
@@ -39,25 +40,26 @@ export default function EmployeePage(props){
     setEditorOpen(false);
   }
 
+  // listen to changes to employees list and apply the update client-side
   function updateEmployees(prev, mutation){
     var newData = Object.assign({}, prev);
     if(mutation.onCreateEmployee){
       newData.listEmployees.items.push(mutation.onCreateEmployee);
     } else if(mutation.onDeleteEmployee){
       newData.listEmployees.items = newData.listEmployees.items.filter(employee => employee.id !== mutation.onDeleteEmployee.id);
-    } /* else if(mutation.onUpdateEmployee){
-      for(var employee in newData.listEmployees.items){
-        if(employee.id === mutation.onUpdateEmployee.id){
-          employee = mutation.onUpdateEmployee;
+    } else if(mutation.onUpdateEmployee){
+      for(var i = 0; i < newData.listEmployees.items.length; i++){
+        if(newData.listEmployees.items[i].id === mutation.onUpdateEmployee.id){
+          Object.assign(newData.listEmployees.items[i], mutation.onUpdateEmployee);
         }
       }
-    }*/
+    }
     return newData;
   }
 
   function onEdit(employee){
     return function (event) {
-      console.log('Edit ' + employee.id);
+      setEditEmployee(employee)
       handleOpenEditor();
     }
   }
@@ -75,7 +77,11 @@ export default function EmployeePage(props){
 
   return (
     <div>
-      <EditEmployeeFormDialog open={editorOpen} onClose={handleCloseEditor}/>
+      <EditEmployeeFormDialog
+        open={editorOpen}
+        onClose={handleCloseEditor}
+        seedEmployee={editEmployee}
+      />
       <div>
         <CreateEmployeeFormCard />
         <Connect
