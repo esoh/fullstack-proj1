@@ -1,5 +1,5 @@
 import React from 'react';
-import { API, graphqlOperation } from 'aws-amplify';
+import { graphqlOperation } from 'aws-amplify';
 import { Connect } from 'aws-amplify-react';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -8,14 +8,9 @@ import CreateSkillFormCard from './CreateSkillFormCard';
 import Grid from '@material-ui/core/Grid';
 import TextCard from '../common/TextCard';
 import * as queries from '../graphql/queries';
-import * as mutations from '../graphql/mutations';
 
 const onChangeSkill = `subscription OnUpdateSkill {
   onCreateSkill {
-    id
-    name
-  },
-  onDeleteSkill {
     id
     name
   },
@@ -54,24 +49,11 @@ export default function SkillPage(props){
     }
   }
 
-  function onDelete(dataId){
-    return async function (event) {
-      const dataInput = {
-        input: {
-          id: dataId
-        }
-      };
-      await API.graphql(graphqlOperation(mutations.deleteSkill, dataInput))
-    }
-  }
-
   // listen to changes to skills list and apply the update client-side
   function updateSkills(prev, mutation){
     var newData = Object.assign({}, prev);
     if(mutation.onCreateSkill){
       newData.listSkills.items.push(mutation.onCreateSkill);
-    } else if(mutation.onDeleteSkill){
-      newData.listSkills.items = newData.listSkills.items.filter(skill => skill.id !== mutation.onDeleteSkill.id);
     } else if(mutation.onUpdateSkill){
       for(var i = 0; i < newData.listSkills.items.length; i++){
         if(newData.listSkills.items[i].id === mutation.onUpdateSkill.id){
@@ -89,7 +71,6 @@ export default function SkillPage(props){
           title={skill.name}
           key={skill.id}
           onEdit={onEdit(skill)}
-          onDelete={onDelete(skill.id)}
         >
         </TextCard>
       </Grid>

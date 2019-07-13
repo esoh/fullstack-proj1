@@ -46,17 +46,21 @@ export default function TextCard(props){
         {props.children}
       </CardContent>
 
-      {(!!props.onEdit && !!props.onDelete) ? (
+      {(!!props.onEdit || !!props.onDelete) ? (
         <CardActions className={clsx({
           [classes.show]: itemsVisible,
           [classes.hide]: !itemsVisible,
         })}>
-          <Button size="small" color="primary" onClick={props.onEdit}>
-            Edit
-          </Button>
+        {(!!props.onEdit) ? (
+            <Button size="small" color="primary" onClick={props.onEdit}>
+              Edit
+            </Button>
+        ) : null}
+        {(!!props.onDelete) ? (
           <Button size="small" color="primary" onClick={props.onDelete}>
             Delete
           </Button>
+        ) : null}
         </CardActions>
       ): null}
     </Card>
