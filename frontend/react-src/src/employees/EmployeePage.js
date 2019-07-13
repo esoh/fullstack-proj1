@@ -1,12 +1,13 @@
 import React from 'react';
-import { graphqlOperation } from "aws-amplify";
+import { API, graphqlOperation } from 'aws-amplify';
 import { Connect } from 'aws-amplify-react';
+import { makeStyles } from '@material-ui/core/styles';
+
 import * as queries from '../graphql/queries';
-import * as subscriptions from '../graphql/subscriptions';
 import ListEmployeesView from './ListEmployeesView';
 import CreateEmployeeForm from './CreateEmployeeForm';
 import CreateFormCard from '../common/CreateFormCard';
-import { makeStyles } from '@material-ui/core/styles';
+import * as mutations from '../graphql/mutations';
 
 const useStyles = makeStyles(theme => ({
   formCard: {
@@ -14,13 +15,42 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const onChangeEmployee = `subscription OnUpdateEmployee {
+  onCreateEmployee {
+    id
+    firstname
+    lastname
+  },
+  onDeleteEmployee {
+    id
+    firstname
+    lastname
+  },
+  onUpdateEmployee {
+    id
+    firstname
+    lastname
+  }
+}
+`;
+
 export default function EmployeePage(props){
 
   const classes = useStyles();
 
-  function onNewEmployee(prev, { onCreateEmployee }){
+  function updateEmployees(prev, mutation){
     var newData = Object.assign({}, prev);
-    newData.listEmployees.items.push(onCreateEmployee);
+    if(mutation.onCreateEmployee){
+      newData.listEmployees.items.push(mutation.onCreateEmployee);
+    } else if(mutation.onDeleteEmployee){
+      newData.listEmployees.items = newData.listEmployees.items.filter(employee => employee.id !== mutation.onDeleteEmployee.id);
+    } /* else if(mutation.onUpdateEmployee){
+      for(var employee in newData.listEmployees.items){
+        if(employee.id === mutation.onUpdateEmployee.id){
+          employee = mutation.onUpdateEmployee;
+        }
+      }
+    }*/
     return newData;
   }
 
@@ -31,8 +61,13 @@ export default function EmployeePage(props){
   }
 
   function onDelete(employeeId){
-    return function (event) {
-      console.log('Delete ' + employeeId);
+    return async function (event) {
+      const employeeInput = {
+        input: {
+          id: employeeId
+        }
+      };
+      await API.graphql(graphqlOperation(mutations.deleteEmployee, employeeInput))
     }
   }
 
@@ -43,8 +78,8 @@ export default function EmployeePage(props){
       </CreateFormCard>
       <Connect
         query={graphqlOperation(queries.listEmployees, { limit: 1000 })}
-        subscription={graphqlOperation(subscriptions.onCreateEmployee)}
-        onSubscriptionMsg={onNewEmployee}
+        subscription={graphqlOperation(onChangeEmployee)}
+        onSubscriptionMsg={updateEmployees}
       >
 
         { ({data: { listEmployees }}, loading, error) => {

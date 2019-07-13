@@ -45,7 +45,7 @@ export default function CreateEmployeeForm(props) {
         firstname,
         lastname,
       }
-    }
+    };
     await API.graphql(graphqlOperation(mutations.createEmployee, employeeInput))
   }
 
