@@ -13,7 +13,7 @@ export default function ListEmployeesView(props){
             <TextCard
               title={employee.lastname + ', ' + employee.firstname}
               key={employee.id}
-              onEdit={props.onEdit(employee.id)}
+              onEdit={props.onEdit(employee)}
               onDelete={props.onDelete(employee.id)}
             >
             </TextCard>

@@ -1,19 +1,12 @@
 import React from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
 import { Connect } from 'aws-amplify-react';
-import { makeStyles } from '@material-ui/core/styles';
 
 import * as queries from '../graphql/queries';
 import ListEmployeesView from './ListEmployeesView';
-import CreateEmployeeForm from './CreateEmployeeForm';
-import CreateFormCard from '../common/CreateFormCard';
+import CreateEmployeeFormCard from './CreateEmployeeFormCard';
 import * as mutations from '../graphql/mutations';
-
-const useStyles = makeStyles(theme => ({
-  formCard: {
-    marginBottom: theme.spacing(6),
-  },
-}));
+import EditEmployeeFormDialog from './EditEmployeeFormDialog';
 
 const onChangeEmployee = `subscription OnUpdateEmployee {
   onCreateEmployee {
@@ -36,7 +29,15 @@ const onChangeEmployee = `subscription OnUpdateEmployee {
 
 export default function EmployeePage(props){
 
-  const classes = useStyles();
+  const [editorOpen, setEditorOpen] = React.useState(false);
+
+  function handleOpenEditor() {
+    setEditorOpen(true);
+  }
+
+  function handleCloseEditor() {
+    setEditorOpen(false);
+  }
 
   function updateEmployees(prev, mutation){
     var newData = Object.assign({}, prev);
@@ -54,9 +55,10 @@ export default function EmployeePage(props){
     return newData;
   }
 
-  function onEdit(employeeId){
+  function onEdit(employee){
     return function (event) {
-      console.log('Edit ' + employeeId);
+      console.log('Edit ' + employee.id);
+      handleOpenEditor();
     }
   }
 
@@ -72,29 +74,30 @@ export default function EmployeePage(props){
   }
 
   return (
-    <>
-      <CreateFormCard title='Create an Employee:' className={classes.formCard}>
-        <CreateEmployeeForm/>
-      </CreateFormCard>
-      <Connect
-        query={graphqlOperation(queries.listEmployees, { limit: 1000 })}
-        subscription={graphqlOperation(onChangeEmployee)}
-        onSubscriptionMsg={updateEmployees}
-      >
+    <div>
+      <EditEmployeeFormDialog open={editorOpen} onClose={handleCloseEditor}/>
+      <div>
+        <CreateEmployeeFormCard />
+        <Connect
+          query={graphqlOperation(queries.listEmployees, { limit: 1000 })}
+          subscription={graphqlOperation(onChangeEmployee)}
+          onSubscriptionMsg={updateEmployees}
+        >
 
-        { ({data: { listEmployees }}, loading, error) => {
-            if(error) return (<p>Error</p>);
-            if(loading || !listEmployees) return (<p>Loading...</p>);
-            return (
-              <ListEmployeesView
-                employees={ listEmployees ? listEmployees.items : [] }
-                onEdit={onEdit}
-                onDelete={onDelete}
-              />
-            );
+          { ({data: { listEmployees }}, loading, error) => {
+              if(error) return (<p>Error</p>);
+              if(loading || !listEmployees) return (<p>Loading...</p>);
+              return (
+                <ListEmployeesView
+                  employees={ listEmployees ? listEmployees.items : [] }
+                  onEdit={onEdit}
+                  onDelete={onDelete}
+                />
+              );
+            }
           }
-        }
-      </Connect>
-    </>
+        </Connect>
+      </div>
+    </div>
   );
 }
