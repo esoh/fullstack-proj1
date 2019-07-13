@@ -19,7 +19,7 @@ export default function EditFormDialog(props) {
 
   return (
     <Dialog open={props.open} onClose={props.onClose}>
-      <DialogTitle>Edit Employee</DialogTitle>
+      <DialogTitle>{props.title}</DialogTitle>
       <form className={classes.container} noValidate autoComplete="off" onSubmit={props.onSubmit}>
         <DialogContent>
           {props.children}

@@ -1,38 +1,14 @@
 import React from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
 
+import withSeedData from '../common/withSeedData';
 import EmployeeFormInput from './EmployeeFormInput';
-import * as mutations from '../graphql/mutations';
 import EditFormDialog from '../common/EditFormDialog';
+import * as mutations from '../graphql/mutations';
 
-class EditEmployeeFormDialog extends React.Component {
+function EditEmployeeFormDialog(props) {
 
-  state = {
-    id: null,
-    firstName: '',
-    lastName: '',
-  };
-
-  static getDerivedStateFromProps(props, state){
-    if(props.seedEmployee && (!state.id || state.id !== props.seedEmployee.id)) {
-      return {
-        ...state,
-        id: props.seedEmployee.id,
-        firstName: props.seedEmployee.firstname,
-        lastName: props.seedEmployee.lastname,
-        seeded: true,
-      };
-    }
-    return state;
-  }
-
-  handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value
-    });
-  };
-
-  updateEmployee = async (id, firstname, lastname) => {
+  async function updateEmployee(id, firstname, lastname) {
     const employeeInput = {
       input: {
         id,
@@ -43,29 +19,33 @@ class EditEmployeeFormDialog extends React.Component {
     await API.graphql(graphqlOperation(mutations.updateEmployee, employeeInput))
   }
 
-  handleSubmit = event => {
-    this.updateEmployee(this.state.id, this.state.firstName, this.state.lastName)
-    this.props.onClose();
+  function handleSubmit(event) {
+    updateEmployee(props.values.id, props.values.firstName, props.values.lastName)
+    props.onClose();
     event.preventDefault();
   }
 
-  render() {
-    return (
-      <EditFormDialog
-        open={this.props.open}
-        onClose={this.props.onClose}
-        onSave={this.handleSubmit}
-      >
-        <EmployeeFormInput
-          handleChange={this.handleChange}
-          values={{
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-          }}
-        />
-      </EditFormDialog>
-    )
-  }
+  return (
+    <EditFormDialog
+      title='Edit Employee'
+      open={props.open}
+      onClose={props.onClose}
+      onSave={handleSubmit}
+    >
+      <EmployeeFormInput
+        handleChange={props.handleChange}
+        values={props.values}
+      />
+    </EditFormDialog>
+  )
 }
 
-export default EditEmployeeFormDialog;
+export default withSeedData(EditEmployeeFormDialog, {
+  firstName: '',
+  lastName: '',
+}, function mapResponseToState(employee){
+  return {
+    firstName: employee.firstname,
+    lastName: employee.lastname,
+  }
+});

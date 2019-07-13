@@ -25,3 +25,24 @@ export const deleteEmployee = `mutation DeleteEmployee($input: DeleteEmployeeInp
   }
 }
 `;
+export const createSkill = `mutation CreateSkill($input: CreateSkillInput!) {
+  createSkill(input: $input) {
+    id
+    name
+  }
+}
+`;
+export const updateSkill = `mutation UpdateSkill($input: UpdateSkillInput!) {
+  updateSkill(input: $input) {
+    id
+    name
+  }
+}
+`;
+export const deleteSkill = `mutation DeleteSkill($input: DeleteSkillInput!) {
+  deleteSkill(input: $input) {
+    id
+    name
+  }
+}
+`;

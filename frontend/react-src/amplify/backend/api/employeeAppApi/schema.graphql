@@ -3,3 +3,8 @@ type Employee @model {
   firstname: String!
   lastname: String!
 }
+
+type Skill @model {
+  id: ID!
+  name: String!
+}

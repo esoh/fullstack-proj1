@@ -25,3 +25,24 @@ export const onDeleteEmployee = `subscription OnDeleteEmployee {
   }
 }
 `;
+export const onCreateSkill = `subscription OnCreateSkill {
+  onCreateSkill {
+    id
+    name
+  }
+}
+`;
+export const onUpdateSkill = `subscription OnUpdateSkill {
+  onUpdateSkill {
+    id
+    name
+  }
+}
+`;
+export const onDeleteSkill = `subscription OnDeleteSkill {
+  onDeleteSkill {
+    id
+    name
+  }
+}
+`;

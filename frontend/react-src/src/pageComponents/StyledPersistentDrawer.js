@@ -52,11 +52,11 @@ export default function StyledPersistentDrawer(props){
       <Divider />
       <List>
         {Object.keys(props.drawerItems).map(key => (
-          <ListItem button key={key}>
-            <Link to={props.drawerItems[key]}>
-              <ListItemText primary={key} />
-            </Link>
-          </ListItem>
+          <Link to={props.drawerItems[key]} key={key}>
+            <ListItem button>
+                <ListItemText primary={key} />
+            </ListItem>
+          </Link>
         ))}
       </List>
     </Drawer>

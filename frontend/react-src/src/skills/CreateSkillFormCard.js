@@ -2,14 +2,13 @@ import React from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
 
 import CreateFormCard from '../common/CreateFormCard';
-import EmployeeFormInput from './EmployeeFormInput';
 import * as mutations from '../graphql/mutations';
+import SkillFormInput from './SkillFormInput';
 
-export default function CreateEmployeeFormCard(props) {
+export default function CreateSkillFormCard(props) {
 
   const [values, setValues] = React.useState({
-    firstName: '',
-    lastName: '',
+    name: '',
   });
 
   const handleChange = name => event => {
@@ -17,32 +16,29 @@ export default function CreateEmployeeFormCard(props) {
   };
 
   function handleCreateSubmit(event){
-    addEmployee(values.firstName, values.lastName)
+    addSkill(values.name)
     event.preventDefault();
   }
 
-  const addEmployee = async (firstname, lastname) => {
-    const employeeInput = {
+  const addSkill = async (name) => {
+    const skillInput = {
       input: {
-        firstname,
-        lastname,
+        name,
       }
     };
-    await API.graphql(graphqlOperation(mutations.createEmployee, employeeInput))
+    await API.graphql(graphqlOperation(mutations.createSkill, skillInput))
   }
-
 
   return (
     <CreateFormCard
-      title='Create an Employee:'
+      title='Create a Skill: '
       className={props.className}
       onSubmit={handleCreateSubmit}
     >
-      <EmployeeFormInput
+      <SkillFormInput
         handleChange={handleChange}
         values={{
-          firstName: values.firstName,
-          lastName: values.lastName,
+          name: values.name,
         }}
       />
     </CreateFormCard>

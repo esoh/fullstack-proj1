@@ -9,7 +9,6 @@ export const getEmployee = `query GetEmployee($id: ID!) {
   }
 }
 `;
-
 export const listEmployees = `query ListEmployees(
   $filter: ModelEmployeeFilterInput
   $limit: Int
@@ -20,6 +19,27 @@ export const listEmployees = `query ListEmployees(
       id
       firstname
       lastname
+    }
+    nextToken
+  }
+}
+`;
+export const getSkill = `query GetSkill($id: ID!) {
+  getSkill(id: $id) {
+    id
+    name
+  }
+}
+`;
+export const listSkills = `query ListSkills(
+  $filter: ModelSkillFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listSkills(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
     }
     nextToken
   }

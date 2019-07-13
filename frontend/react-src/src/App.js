@@ -3,8 +3,9 @@ import clsx from 'clsx';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import EmployeePage from './employees/EmployeePage';
 
+import EmployeePage from './employees/EmployeePage';
+import SkillPage from './skills/SkillPage';
 import HeaderWithSideMenu from './pageComponents/HeaderWithSideMenu';
 import { DRAWER_WIDTH } from './constants/display';
 import './App.css';
@@ -61,7 +62,8 @@ function App() {
         <HeaderWithSideMenu
           appName="Employee App"
           drawerItems={{
-            'Employees': '/',
+            'Employees': '/employees',
+            'Skills': '/skills',
           }}
           handleDrawerOpen={handleDrawerOpen}
           handleDrawerClose={handleDrawerClose}
@@ -76,8 +78,9 @@ function App() {
           <div className={classes.drawerHeader} />
           <Container maxWidth="sm">
             <Switch>
-              <Route exact path='/' component={EmployeePage}/>
-              <Route render={() => <Redirect to="/" />} />
+              <Route path='/employees' component={EmployeePage}/>
+              <Route path='/skills' component={SkillPage}/>
+              <Route render={() => <Redirect to="/employees" />} />
             </Switch>
           </Container>
         </main>
