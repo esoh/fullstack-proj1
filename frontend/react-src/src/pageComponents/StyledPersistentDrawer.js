@@ -26,6 +26,10 @@ const useStyles = makeStyles(theme => ({
     padding: '0 8px',
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
+  },
+  drawerItem: {
+    color: 'inherit !important',
+    textDecoration: 'none',
   }
 }));
 
@@ -52,9 +56,9 @@ export default function StyledPersistentDrawer(props){
       <Divider />
       <List>
         {Object.keys(props.drawerItems).map(key => (
-          <Link to={props.drawerItems[key]} key={key}>
+          <Link to={props.drawerItems[key]} key={key} className={classes.drawerItem}>
             <ListItem button>
-                <ListItemText primary={key} />
+              <ListItemText primary={key}/>
             </ListItem>
           </Link>
         ))}
