@@ -26,7 +26,7 @@ export default function EmployeeCard(props){
       >
         <Typography variant="body2">{skillText}</Typography>
         {employee.address.map((address, index) =>
-          <Typography variant="body2" key={Date.now() + '' + index}>{addressToText(address, index)}</Typography>
+          <Typography variant="body2" key={address}>{addressToText(address, index)}</Typography>
         )}
       </TextCard>
     </Grid>

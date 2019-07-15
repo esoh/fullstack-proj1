@@ -42,7 +42,7 @@ export default function AddressesInput(props){
       {(props.values.length > 0) ? (
         <div className={classes.addressesTop}>
           {props.values.map((address, index) =>
-            <div key={index}>
+            <div key={address}>
               <Divider className={classes.divider}/>
               <AddressInput
                 normalIndex={index + 1}
