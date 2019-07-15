@@ -119,7 +119,7 @@ export default function EmployeePage(props){
                       if(loading || !idToName) return <p>Loading</p>;
 
                       return (listEmployees) ? listEmployees.items.map(employee => {
-                        let skillText = employee.skills ? "Skills: " + employee.skills.map(id => idToName.get(id)).join(', ') : "Skills: None";
+                        let skillText = (employee.skills.length > 0) ? "Skills: " + employee.skills.map(id => idToName.get(id)).join(', ') : "Skills: None";
                         return (
                           <Grid item key={employee.id} xs={12}>
                             <TextCard
