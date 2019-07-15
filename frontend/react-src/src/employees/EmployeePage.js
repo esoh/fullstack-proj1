@@ -3,13 +3,12 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { Connect } from 'aws-amplify-react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 
 import * as queries from '../graphql/queries';
 import CreateEmployeeFormCard from './CreateEmployeeFormCard';
 import * as mutations from '../graphql/mutations';
 import EditEmployeeFormDialog from './EditEmployeeFormDialog';
-import TextCard from '../common/TextCard';
+import EmployeeCard from './EmployeeCard';
 import {DataContext} from '../DataContext';
 
 
@@ -118,21 +117,15 @@ export default function EmployeePage(props){
                       if(error) return <p>Error</p>;
                       if(loading || !idToName) return <p>Loading</p>;
 
-                      return (listEmployees) ? listEmployees.items.map(employee => {
-                        let skillText = (employee.skills.length > 0) ? "Skills: " + employee.skills.map(id => idToName.get(id)).join(', ') : "Skills: None";
-                        return (
-                          <Grid item key={employee.id} xs={12}>
-                            <TextCard
-                              title={employee.lastname + ', ' + employee.firstname}
-                              key={employee.id}
-                              onEdit={onEdit(employee)}
-                              onDelete={onDelete(employee.id)}
-                            >
-                              <Typography variant="body2">{skillText}</Typography>
-                            </TextCard>
-                          </Grid>
-                        );
-                      }) : null;
+                      return (listEmployees) ? listEmployees.items.map(employee =>
+                        <EmployeeCard
+                          key={employee.id}
+                          employee={employee}
+                          skillIdToName={idToName}
+                          onEdit={onEdit}
+                          onDelete={onDelete}
+                        />
+                      ) : null;
                     }}
                   </DataContext.Consumer>
                 </Grid>

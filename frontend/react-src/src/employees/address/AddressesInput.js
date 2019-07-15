@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: 20,
   },
   divider: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
   addressesTop: {
