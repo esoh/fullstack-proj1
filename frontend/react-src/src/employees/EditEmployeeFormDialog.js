@@ -1,54 +1,47 @@
 import React from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
 
-import withSeedData from '../common/withSeedData';
 import EmployeeFormInput from './EmployeeFormInput';
 import EditFormDialog from '../common/EditFormDialog';
 import * as mutations from '../graphql/mutations';
+import EmployeeValueContainer from './EmployeeValueContainer';
 
-function EditEmployeeFormDialog(props) {
+export default function EditEmployeeFormDialog(props) {
 
-  async function updateEmployee(id, firstname, lastname, skills) {
+  async function updateEmployee(id, firstname, lastname, skills, address) {
     const employeeInput = {
       input: {
         id,
         firstname,
         lastname,
         skills,
+        address,
       }
     };
     await API.graphql(graphqlOperation(mutations.updateEmployee, employeeInput))
   }
 
-  function handleSubmit(event) {
-    updateEmployee(props.values.id, props.values.firstName, props.values.lastName, [...props.values.skills])
+  const onSubmitUpdateEmployee = (employee) => (event) => {
+    updateEmployee(employee.id, employee.firstName, employee.lastName, [...employee.skills], employee.addresses)
     props.onClose();
     event.preventDefault();
   }
 
   return (
-    <EditFormDialog
-      title='Edit Employee'
-      open={props.open}
-      onClose={props.onClose}
-      onSave={handleSubmit}
-    >
-      <EmployeeFormInput
-        handleChange={props.handleChange}
-        values={props.values}
-      />
-    </EditFormDialog>
+    <EmployeeValueContainer seedData={props.seedData}>
+      { ({ handleChange, employeeValues }) => (
+        <EditFormDialog
+          title='Edit Employee'
+          open={props.open}
+          onClose={props.onClose}
+          onSave={onSubmitUpdateEmployee(employeeValues)}
+        >
+          <EmployeeFormInput
+            handleChange={handleChange}
+            values={employeeValues}
+          />
+        </EditFormDialog>
+      )}
+    </EmployeeValueContainer>
   )
 }
-
-export default withSeedData(EditEmployeeFormDialog, {
-  firstName: '',
-  lastName: '',
-  skills: new Set(),
-}, function mapResponseToState(employee){
-  return {
-    firstName: employee.firstname,
-    lastName: employee.lastname,
-    skills: new Set(employee.skills),
-  }
-});

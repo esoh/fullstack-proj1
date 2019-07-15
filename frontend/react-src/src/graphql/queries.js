@@ -7,6 +7,13 @@ export const getEmployee = `query GetEmployee($id: ID!) {
     firstname
     lastname
     skills
+    address {
+      line1
+      line2
+      city
+      state
+      zipcode
+    }
   }
 }
 `;
@@ -21,6 +28,13 @@ export const listEmployees = `query ListEmployees(
       firstname
       lastname
       skills
+      address {
+        line1
+        line2
+        city
+        state
+        zipcode
+      }
     }
     nextToken
   }

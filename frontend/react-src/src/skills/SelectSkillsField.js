@@ -12,15 +12,15 @@ import {DataContext} from '../DataContext';
 
 export default function SelectSkillsField(props){
 
-  if(!props.values.length){
-    return <Typography variant='body2' className={props.className}>No skills found.<br></br><Link to='/skills'>Create a Skill »</Link></Typography>
-  }
 
   return (
     <DataContext.Consumer>
       {({ skills: { list, loading, error, idToName } }) => {
         if(error) return (<p>Error</p>);
         if(loading || !list) return (<p>Loading...</p>);
+        if(!list.items.length){
+          return <Typography variant='body2' className={props.className}>No skills found.<br></br><Link to='/skills'>Create a Skill »</Link></Typography>
+        }
         return (
           <FormControl className={props.className}>
             <InputLabel shrink>Skills</InputLabel>

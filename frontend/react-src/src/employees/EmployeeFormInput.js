@@ -1,5 +1,6 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
+import AddressesInput from './address/AddressesInput';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 
@@ -12,11 +13,16 @@ const useStyles = makeStyles(theme => ({
   horizontalItem: {
     flexGrow: 1,
   },
-  textField: {
+  hasLeft: {
     marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
+  },
+  hasRight: {
+    marginRight: theme.spacing(1)
+  },
+  row: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    display: 'block',
   },
 }));
 
@@ -28,7 +34,7 @@ export default function EmployeeFormInput(props) {
     <div>
       <div className={classes.horizontalContainer}>
         <TextField
-          className={clsx(classes.textField, classes.horizontalItem)}
+          className={clsx(classes.hasRight, classes.horizontalItem)}
           label="First Name"
           placeholder="John"
           margin="normal"
@@ -39,7 +45,7 @@ export default function EmployeeFormInput(props) {
           onChange={props.handleChange('firstName')}
         />
         <TextField
-          className={clsx(classes.textField, classes.horizontalItem)}
+          className={clsx(classes.hasLeft, classes.horizontalItem)}
           label="Last Name"
           placeholder="Doe"
           margin="normal"
@@ -51,9 +57,13 @@ export default function EmployeeFormInput(props) {
         />
       </div>
       <SelectSkillsField
-        className={classes.textField}
+        className={classes.row}
         values={props.values.skills}
         onChange={props.handleChange('skills')}
+      />
+      <AddressesInput
+        values={props.values.addresses}
+        onChange={props.handleChange('addresses')}
       />
     </div>
   )

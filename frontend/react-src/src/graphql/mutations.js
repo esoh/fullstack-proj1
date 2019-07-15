@@ -7,6 +7,13 @@ export const createEmployee = `mutation CreateEmployee($input: CreateEmployeeInp
     firstname
     lastname
     skills
+    address {
+      line1
+      line2
+      city
+      state
+      zipcode
+    }
   }
 }
 `;
@@ -16,6 +23,13 @@ export const updateEmployee = `mutation UpdateEmployee($input: UpdateEmployeeInp
     firstname
     lastname
     skills
+    address {
+      line1
+      line2
+      city
+      state
+      zipcode
+    }
   }
 }
 `;
@@ -25,6 +39,13 @@ export const deleteEmployee = `mutation DeleteEmployee($input: DeleteEmployeeInp
     firstname
     lastname
     skills
+    address {
+      line1
+      line2
+      city
+      state
+      zipcode
+    }
   }
 }
 `;

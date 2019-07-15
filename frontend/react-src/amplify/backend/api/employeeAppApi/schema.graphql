@@ -3,6 +3,15 @@ type Employee @model {
   firstname: String!
   lastname: String!
   skills: [ID]
+  address: [Address]
+}
+
+type Address {
+  line1: String!,
+  line2: String,
+  city: String,
+  state: String,
+  zipcode: String,
 }
 
 type Skill @model {

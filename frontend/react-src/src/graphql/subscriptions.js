@@ -7,6 +7,13 @@ export const onCreateEmployee = `subscription OnCreateEmployee {
     firstname
     lastname
     skills
+    address {
+      line1
+      line2
+      city
+      state
+      zipcode
+    }
   }
 }
 `;
@@ -16,6 +23,13 @@ export const onUpdateEmployee = `subscription OnUpdateEmployee {
     firstname
     lastname
     skills
+    address {
+      line1
+      line2
+      city
+      state
+      zipcode
+    }
   }
 }
 `;
@@ -25,6 +39,13 @@ export const onDeleteEmployee = `subscription OnDeleteEmployee {
     firstname
     lastname
     skills
+    address {
+      line1
+      line2
+      city
+      state
+      zipcode
+    }
   }
 }
 `;

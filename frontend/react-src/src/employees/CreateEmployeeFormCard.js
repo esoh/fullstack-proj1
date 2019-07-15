@@ -4,38 +4,22 @@ import { API, graphqlOperation } from 'aws-amplify';
 import CreateFormCard from '../common/CreateFormCard';
 import EmployeeFormInput from './EmployeeFormInput';
 import * as mutations from '../graphql/mutations';
+import EmployeeValueContainer from './EmployeeValueContainer';
 
 export default function CreateEmployeeFormCard(props) {
 
-  const textFields = {
-    firstName: '',
-    lastName: '',
-  }
-
-  const [values, setValues] = React.useState({
-    ...textFields,
-    skills: new Set(),
-  });
-
-  const handleChange = name => event => {
-    if(textFields.hasOwnProperty(name)){
-      setValues({ ...values, [name]: event.target.value });
-    } else if(name === 'skills'){
-      setValues({ ...values, skills: new Set(event.target.value) })
-    }
-  };
-
-  function handleCreateSubmit(event){
-    addEmployee(values.firstName, values.lastName, values.skills)
+  const onSubmitCreateEmployee = (employee) => (event) => {
+    addEmployee(employee.firstName, employee.lastName, employee.skills, employee.addresses)
     event.preventDefault();
   }
 
-  const addEmployee = async (firstname, lastname, skills) => {
+  const addEmployee = async (firstname, lastname, skills, address) => {
     const employeeInput = {
       input: {
         firstname,
         lastname,
-        skills: [...skills]
+        skills: [...skills],
+        address,
       }
     };
     await API.graphql(graphqlOperation(mutations.createEmployee, employeeInput))
@@ -43,19 +27,19 @@ export default function CreateEmployeeFormCard(props) {
 
 
   return (
-    <CreateFormCard
-      title='Create an Employee:'
-      className={props.className}
-      onSubmit={handleCreateSubmit}
-    >
-      <EmployeeFormInput
-        handleChange={handleChange}
-        values={{
-          firstName: values.firstName,
-          lastName: values.lastName,
-          skills: values.skills
-        }}
-      />
-    </CreateFormCard>
-  )
+    <EmployeeValueContainer>
+      { ({ handleChange, employeeValues }) => (
+        <CreateFormCard
+          title='Create an Employee:'
+          className={props.className}
+          onSubmit={onSubmitCreateEmployee(employeeValues)}
+        >
+          <EmployeeFormInput
+            handleChange={handleChange}
+            values={employeeValues}
+          />
+        </CreateFormCard>
+      )}
+    </EmployeeValueContainer>
+  );
 }
