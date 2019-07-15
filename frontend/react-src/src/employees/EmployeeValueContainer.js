@@ -9,6 +9,14 @@ export default class EmployeeValueContainer extends React.Component {
     addresses: [],
   }
 
+  blankAddress = {
+    line1: '',
+    line2: '',
+    city: '',
+    state: '',
+    zipcode: '',
+  }
+
   static getDerivedStateFromProps(props, state){
     if(props.seedData && (!state.id || state.id !== props.seedData.id)) {
       return {
@@ -24,7 +32,7 @@ export default class EmployeeValueContainer extends React.Component {
       firstName: employeeData.firstname,
       lastName: employeeData.lastname,
       skills: ((employeeData['skills']) ? new Set(employeeData.skills) : new Set()),
-      address: ((employeeData['address']) ? employeeData.address : []),
+      addresses: ((employeeData['address']) ? employeeData.address : []),
     };
   }
 
@@ -45,10 +53,34 @@ export default class EmployeeValueContainer extends React.Component {
     }
   }
 
+  addAddress = () => {
+    let addresses = this.state.addresses;
+    addresses.push({...this.blankAddress});
+    this.setState({ addresses });
+  }
+
+  deleteAddress = index => {
+    let addresses = this.state.addresses;
+    addresses.splice(index, 1);
+    this.setState({ addresses });
+  }
+
+  addressIndexHandleChange = index => name => event => {
+    let value = event.target.value;
+    let addresses = this.state.addresses;
+    addresses[index][name] = value;
+    this.setState({ addresses });
+  }
+
   render() {
     return this.props.children({
       handleChange: this.handleChange,
       employeeValues: this.state,
+      address: {
+        add: this.addAddress,
+        delete: this.deleteAddress,
+        handleChange: this.addressIndexHandleChange,
+      }
     })
   }
 }

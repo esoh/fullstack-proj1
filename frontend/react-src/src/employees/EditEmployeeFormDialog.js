@@ -29,7 +29,7 @@ export default function EditEmployeeFormDialog(props) {
 
   return (
     <EmployeeValueContainer seedData={props.seedData}>
-      { ({ handleChange, employeeValues }) => (
+      { ({ handleChange, employeeValues, address }) => (
         <EditFormDialog
           title='Edit Employee'
           open={props.open}
@@ -39,6 +39,7 @@ export default function EditEmployeeFormDialog(props) {
           <EmployeeFormInput
             handleChange={handleChange}
             values={employeeValues}
+            addressActions={address}
           />
         </EditFormDialog>
       )}

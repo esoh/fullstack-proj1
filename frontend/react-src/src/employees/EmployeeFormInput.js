@@ -24,6 +24,9 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(1),
     display: 'block',
   },
+  addAddressButton: {
+    marginTop: theme.spacing(2),
+  }
 }));
 
 export default function EmployeeFormInput(props) {
@@ -62,8 +65,10 @@ export default function EmployeeFormInput(props) {
         onChange={props.handleChange('skills')}
       />
       <AddressesInput
+        className={classes.addAddressButton}
         values={props.values.addresses}
         onChange={props.handleChange('addresses')}
+        addressActions={props.addressActions}
       />
     </div>
   )

@@ -28,7 +28,7 @@ export default function CreateEmployeeFormCard(props) {
 
   return (
     <EmployeeValueContainer>
-      { ({ handleChange, employeeValues }) => (
+      { ({ handleChange, employeeValues, address }) => (
         <CreateFormCard
           title='Create an Employee:'
           className={props.className}
@@ -37,6 +37,7 @@ export default function CreateEmployeeFormCard(props) {
           <EmployeeFormInput
             handleChange={handleChange}
             values={employeeValues}
+            addressActions={address}
           />
         </CreateFormCard>
       )}
