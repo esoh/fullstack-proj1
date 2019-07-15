@@ -6,6 +6,7 @@ export const getEmployee = `query GetEmployee($id: ID!) {
     id
     firstname
     lastname
+    skills
   }
 }
 `;
@@ -19,6 +20,7 @@ export const listEmployees = `query ListEmployees(
       id
       firstname
       lastname
+      skills
     }
     nextToken
   }

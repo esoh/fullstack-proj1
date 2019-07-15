@@ -6,6 +6,7 @@ export const createEmployee = `mutation CreateEmployee($input: CreateEmployeeInp
     id
     firstname
     lastname
+    skills
   }
 }
 `;
@@ -14,6 +15,7 @@ export const updateEmployee = `mutation UpdateEmployee($input: UpdateEmployeeInp
     id
     firstname
     lastname
+    skills
   }
 }
 `;
@@ -22,6 +24,7 @@ export const deleteEmployee = `mutation DeleteEmployee($input: DeleteEmployeeInp
     id
     firstname
     lastname
+    skills
   }
 }
 `;

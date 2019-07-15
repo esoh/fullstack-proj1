@@ -8,9 +8,16 @@ export default function withSeedData(WrappedComponent, initialData, mapResponseT
     }
 
     handleChange = name => event => {
-      this.setState({
-        [name]: event.target.value
-      });
+      if(this.state[name] instanceof Set){
+        this.setState({
+          [name]: new Set(event.target.value)
+        })
+
+      } else {
+        this.setState({
+          [name]: event.target.value
+        });
+      }
     };
 
     static getDerivedStateFromProps(props, state){

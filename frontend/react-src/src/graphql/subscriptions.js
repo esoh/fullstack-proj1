@@ -6,6 +6,7 @@ export const onCreateEmployee = `subscription OnCreateEmployee {
     id
     firstname
     lastname
+    skills
   }
 }
 `;
@@ -14,6 +15,7 @@ export const onUpdateEmployee = `subscription OnUpdateEmployee {
     id
     firstname
     lastname
+    skills
   }
 }
 `;
@@ -22,6 +24,7 @@ export const onDeleteEmployee = `subscription OnDeleteEmployee {
     id
     firstname
     lastname
+    skills
   }
 }
 `;

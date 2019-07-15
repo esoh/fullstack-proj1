@@ -4,6 +4,7 @@ import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
+import DataContextProvider from './DataContextProvider';
 import EmployeePage from './employees/EmployeePage';
 import SkillPage from './skills/SkillPage';
 import HeaderWithSideMenu from './pageComponents/HeaderWithSideMenu';
@@ -43,7 +44,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-function App() {
+function App(props) {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
 
   function handleDrawerOpen() {
@@ -77,11 +78,13 @@ function App() {
         >
           <div className={classes.drawerHeader} />
           <Container maxWidth="sm">
-            <Switch>
-              <Route path='/employees' component={EmployeePage}/>
-              <Route path='/skills' component={SkillPage}/>
-              <Route render={() => <Redirect to="/employees" />} />
-            </Switch>
+            <DataContextProvider>
+              <Switch>
+                <Route path='/employees' component={EmployeePage}/>
+                <Route path='/skills' component={SkillPage}/>
+                <Route render={() => <Redirect to="/employees" />} />
+              </Switch>
+            </DataContextProvider>
           </Container>
         </main>
       </div>

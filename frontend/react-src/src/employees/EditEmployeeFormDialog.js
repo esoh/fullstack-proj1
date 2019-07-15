@@ -8,19 +8,20 @@ import * as mutations from '../graphql/mutations';
 
 function EditEmployeeFormDialog(props) {
 
-  async function updateEmployee(id, firstname, lastname) {
+  async function updateEmployee(id, firstname, lastname, skills) {
     const employeeInput = {
       input: {
         id,
         firstname,
         lastname,
+        skills,
       }
     };
     await API.graphql(graphqlOperation(mutations.updateEmployee, employeeInput))
   }
 
   function handleSubmit(event) {
-    updateEmployee(props.values.id, props.values.firstName, props.values.lastName)
+    updateEmployee(props.values.id, props.values.firstName, props.values.lastName, [...props.values.skills])
     props.onClose();
     event.preventDefault();
   }
@@ -43,9 +44,11 @@ function EditEmployeeFormDialog(props) {
 export default withSeedData(EditEmployeeFormDialog, {
   firstName: '',
   lastName: '',
+  skills: new Set(),
 }, function mapResponseToState(employee){
   return {
     firstName: employee.firstname,
     lastName: employee.lastname,
+    skills: new Set(employee.skills),
   }
 });
