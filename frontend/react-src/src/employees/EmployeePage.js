@@ -59,7 +59,7 @@ export default function EmployeePage(props){
   function updateEmployees(prev, mutation){
     var newData = Object.assign({}, prev);
     if(mutation.onCreateEmployee){
-      newData.listEmployees.items.push(mutation.onCreateEmployee);
+      newData.listEmployees.items.unshift(mutation.onCreateEmployee);
     } else if(mutation.onDeleteEmployee){
       newData.listEmployees.items = newData.listEmployees.items.filter(employee => employee.id !== mutation.onDeleteEmployee.id);
     } else if(mutation.onUpdateEmployee){

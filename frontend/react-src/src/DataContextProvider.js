@@ -11,7 +11,7 @@ export default function DataContextProvider(props) {
   function updateSkills(prev, mutation){
     var newData = Object.assign({}, prev);
     if(mutation.onCreateSkill){
-      newData.listSkills.items.push(mutation.onCreateSkill);
+      newData.listSkills.items.unshift(mutation.onCreateSkill);
     } else if(mutation.onUpdateSkill){
       for(var i = 0; i < newData.listSkills.items.length; i++){
         if(newData.listSkills.items[i].id === mutation.onUpdateSkill.id){
