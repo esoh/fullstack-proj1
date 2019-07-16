@@ -19,11 +19,6 @@ type Skill @model {
   name: String!
 }
 
-input LambdaSkillInput {
-  id: ID
-  name: String!
-}
-
 input LambdaCreateSkillInput {
   name: String!
 }
@@ -37,8 +32,39 @@ input LambdaDeleteSkillInput {
   id: ID!
 }
 
+input LambdaCreateEmployeeInput {
+  firstname: String!
+  lastname: String!
+  skills: [ID]
+  address: [AddressInput]
+}
+
+input LambdaUpdateEmployeeInput {
+  id: ID!
+  firstname: String
+  lastname: String
+  skills: [ID]
+  address: [AddressInput]
+}
+
+input LambdaDeleteEmployeeInput {
+  id: ID!
+}
+
+input AddressInput {
+  line1: String!
+  line2: String
+  city: String
+  state: String
+  zipcode: String
+}
+
 type Mutation {
   lambdaCreateSkill(operation: String!, input: LambdaCreateSkillInput!): String @function(name: "skillfunction-${env}")
   lambdaUpdateSkill(operation: String!, input: LambdaUpdateSkillInput!): String @function(name: "skillfunction-${env}")
   lambdaDeleteSkill(operation: String!, input: LambdaDeleteSkillInput!): String @function(name: "skillfunction-${env}")
+  lambdaCreateEmployee(operation: String!, input: LambdaCreateEmployeeInput!): String @function(name: "employeefunction-${env}")
+  lambdaUpdateEmployee(operation: String!, input: LambdaUpdateEmployeeInput!): String @function(name: "employeefunction-${env}")
+  lambdaDeleteEmployee(operation: String!, input: LambdaDeleteEmployeeInput!): String @function(name: "employeefunction-${env}")
 }
+

@@ -1,29 +1,45 @@
 {
-    "api": {
-        "employeeAppApi": {
-            "service": "AppSync",
-            "providerPlugin": "awscloudformation",
-            "output": {
-                "securityType": "API_KEY"
-            }
-        }
-    },
-    "function": {
-        "skillfunction": {
-            "service": "Lambda",
-            "providerPlugin": "awscloudformation",
-            "build": true,
-            "dependsOn": [
-                {
-                    "category": "api",
-                    "resourceName": "employeeAppApi",
-                    "attributes": [
-                        "GraphQLAPIIdOutput",
-                        "GraphQLAPIEndpointOutput",
-                        "GraphQLAPIKeyOutput"
-                    ]
-                }
-            ]
-        }
-    }
+	"api": {
+		"employeeAppApi": {
+			"service": "AppSync",
+			"providerPlugin": "awscloudformation",
+			"output": {
+				"securityType": "API_KEY"
+			}
+		}
+	},
+	"function": {
+		"skillfunction": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true,
+			"dependsOn": [
+				{
+					"category": "api",
+					"resourceName": "employeeAppApi",
+					"attributes": [
+						"GraphQLAPIIdOutput",
+						"GraphQLAPIEndpointOutput",
+						"GraphQLAPIKeyOutput"
+					]
+				}
+			]
+		},
+		"employeefunction": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true,
+			"dependsOn": [
+				{
+					"category": "api",
+					"resourceName": "employeeAppApi",
+					"attributes": [
+						"GraphQLAPIIdOutput",
+						"GraphQLAPIEndpointOutput",
+						"GraphQLAPIKeyOutput"
+					]
+				}
+			]
+		}
+	}
 }

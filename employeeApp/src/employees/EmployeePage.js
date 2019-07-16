@@ -81,12 +81,13 @@ export default function EmployeePage(props){
 
   function onDelete(employeeId){
     return async function (event) {
-      const employeeInput = {
+      const lambdaEmployeeInput = {
+        operation: 'delete',
         input: {
           id: employeeId
         }
       };
-      await API.graphql(graphqlOperation(mutations.deleteEmployee, employeeInput))
+      await API.graphql(graphqlOperation(mutations.lambdaDeleteEmployee, lambdaEmployeeInput))
     }
   }
 

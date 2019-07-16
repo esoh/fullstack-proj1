@@ -28,11 +28,15 @@ export default class EmployeeValueContainer extends React.Component {
   }
 
   static mapEmployeeToState(employeeData){
+    var addresses = ((employeeData['address']) ? employeeData.address : []);
+    for(var i = 0; i < addresses.length; i++){
+      if(addresses[i].line2 === null) addresses[i].line2 = '';
+    }
     return {
       firstName: employeeData.firstname,
       lastName: employeeData.lastname,
       skills: ((employeeData['skills']) ? new Set(employeeData.skills) : new Set()),
-      addresses: ((employeeData['address']) ? employeeData.address : []),
+      addresses
     };
   }
 

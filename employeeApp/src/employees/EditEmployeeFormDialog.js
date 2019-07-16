@@ -9,7 +9,8 @@ import EmployeeValueContainer from './EmployeeValueContainer';
 export default function EditEmployeeFormDialog(props) {
 
   async function updateEmployee(id, firstname, lastname, skills, address) {
-    const employeeInput = {
+    const lambdaEmployeeInput = {
+      operation: 'update',
       input: {
         id,
         firstname,
@@ -18,7 +19,7 @@ export default function EditEmployeeFormDialog(props) {
         address,
       }
     };
-    await API.graphql(graphqlOperation(mutations.updateEmployee, employeeInput))
+    await API.graphql(graphqlOperation(mutations.lambdaUpdateEmployee, lambdaEmployeeInput))
   }
 
   const onSubmitUpdateEmployee = (employee) => (event) => {

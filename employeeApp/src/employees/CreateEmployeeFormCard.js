@@ -14,15 +14,16 @@ export default function CreateEmployeeFormCard(props) {
   }
 
   const addEmployee = async (firstname, lastname, skills, address) => {
-    const employeeInput = {
+    const lambdaEmployeeInput = {
+      operation: 'create',
       input: {
         firstname,
         lastname,
         skills: [...skills],
         address,
       }
-    };
-    await API.graphql(graphqlOperation(mutations.createEmployee, employeeInput))
+    }
+    await API.graphql(graphqlOperation(mutations.lambdaCreateEmployee, lambdaEmployeeInput));
   }
 
 

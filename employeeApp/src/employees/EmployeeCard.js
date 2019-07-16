@@ -13,9 +13,9 @@ export default function EmployeeCard(props){
     onDelete,
   } = props;
 
-  let skillText = (employee.skills.length > 0) ? "Skills: " + employee.skills.map(id => skillIdToName.get(id)).join(', ') : "Skills: None";
+  let skillText = (!!employee['skills'] && employee.skills.length > 0) ? "Skills: " + employee.skills.map(id => skillIdToName.get(id)).join(', ') : "Skills: None";
   let addressToText = (address, index) =>
-    'Address ' + (index+1) + ': ' + address.line1 + ' ' + address.line2 + ', ' + address.city + ' ' + address.state + ' ' + address.zipcode;
+    'Address ' + (index+1) + ': ' + address.line1 + ' ' + ((address.line2 !== null) ? address.line2 : '') + ', ' + address.city + ' ' + address.state + ' ' + address.zipcode;
 
   return (
     <Grid item xs={12}>
@@ -25,9 +25,9 @@ export default function EmployeeCard(props){
         onDelete={onDelete(employee.id)}
       >
         <Typography variant="body2">{skillText}</Typography>
-        {employee.address.map((address, index) =>
+        {(!!employee['address']) ? employee.address.map((address, index) =>
           <Typography variant="body2" key={address}>{addressToText(address, index)}</Typography>
-        )}
+        ) : null}
       </TextCard>
     </Grid>
   );

@@ -22,6 +22,27 @@ export const lambdaDeleteSkill = `mutation LambdaDeleteSkill(
   lambdaDeleteSkill(operation: $operation, input: $input)
 }
 `;
+export const lambdaCreateEmployee = `mutation LambdaCreateEmployee(
+  $operation: String!
+  $input: LambdaCreateEmployeeInput!
+) {
+  lambdaCreateEmployee(operation: $operation, input: $input)
+}
+`;
+export const lambdaUpdateEmployee = `mutation LambdaUpdateEmployee(
+  $operation: String!
+  $input: LambdaUpdateEmployeeInput!
+) {
+  lambdaUpdateEmployee(operation: $operation, input: $input)
+}
+`;
+export const lambdaDeleteEmployee = `mutation LambdaDeleteEmployee(
+  $operation: String!
+  $input: LambdaDeleteEmployeeInput!
+) {
+  lambdaDeleteEmployee(operation: $operation, input: $input)
+}
+`;
 export const createEmployee = `mutation CreateEmployee($input: CreateEmployeeInput!) {
   createEmployee(input: $input) {
     id

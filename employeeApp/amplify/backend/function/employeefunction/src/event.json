@@ -1,0 +1,16 @@
+{
+  "arguments": {
+    "operation": "create",
+    "input": {
+      "firstname": "skilllz",
+      "lastname": "lambda",
+      "address": [{
+        "line1": "3900 santa Carlotta st.",
+        "line2": "",
+        "city": "La Crescenta",
+        "state": "California",
+        "zipcode": "91214"
+      }]
+    }
+  }
+}

@@ -40,12 +40,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"skillfunction",
+						"employeefunction",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"skillfunction",
+									"employeefunction",
 									"-",
 									{
 										"Ref": "env"
@@ -84,7 +84,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "fullstack-proj1-api-dev-20190716065735-deployment",
-					"S3Key": "amplify-builds/skillfunction-58384d4c70737a594a50-build.zip"
+					"S3Key": "amplify-builds/employeefunction-69666b52355956355948-build.zip"
 				}
 			}
 		},
@@ -94,12 +94,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"fullstackproj1apiLambdaRole0903c12a",
+						"fullstackproj1apiLambdaRolef34a5a2c",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"fullstackproj1apiLambdaRole0903c12a",
+									"fullstackproj1apiLambdaRolef34a5a2c",
 									"-",
 									{
 										"Ref": "env"
