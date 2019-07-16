@@ -1,4 +1,9 @@
 # fullstack-proj1
+This project allows any user to view, create, update, and delete employee information along with their skills and addresses. 
+
+http://fullstack-proj1-api-20190716080413-hostingbucket-dev.s3-website-us-west-2.amazonaws.com/
+
+It utilizes an AWS Appsync & DynamoDB backend with some AWS Lambda function resolvers using the AWS Amplify Library, with a React.js frontend with the Material UI React framework.
 
 ### Requirements
 1. Node js && npm
@@ -21,6 +26,9 @@
 1. cd into the ```employeeApp``` directory and ```amplify push``` to push code to aws (Note: this will take a while)
 1. Choose to generate code, choose javascript, choose defaults
 1. ```npm start``` to run locally
+
+### Deploy
+1.```amplify publish```
 
 ### Deleting everything
 1. cd into ```fullstack-proj1/employeeApp```
