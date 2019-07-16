@@ -1,6 +1,27 @@
 // eslint-disable
 // this is an auto generated file. This will be overwritten
 
+export const lambdaCreateSkill = `mutation LambdaCreateSkill(
+  $operation: String!
+  $input: LambdaCreateSkillInput!
+) {
+  lambdaCreateSkill(operation: $operation, input: $input)
+}
+`;
+export const lambdaUpdateSkill = `mutation LambdaUpdateSkill(
+  $operation: String!
+  $input: LambdaUpdateSkillInput!
+) {
+  lambdaUpdateSkill(operation: $operation, input: $input)
+}
+`;
+export const lambdaDeleteSkill = `mutation LambdaDeleteSkill(
+  $operation: String!
+  $input: LambdaDeleteSkillInput!
+) {
+  lambdaDeleteSkill(operation: $operation, input: $input)
+}
+`;
 export const createEmployee = `mutation CreateEmployee($input: CreateEmployeeInput!) {
   createEmployee(input: $input) {
     id

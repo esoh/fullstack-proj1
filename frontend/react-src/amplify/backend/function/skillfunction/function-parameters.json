@@ -1,0 +1,11 @@
+{
+    "permissions": {
+        "api": {
+            "employeeAppApi": [
+                "create",
+                "update",
+                "delete"
+            ]
+        }
+    }
+}

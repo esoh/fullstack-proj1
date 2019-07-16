@@ -18,3 +18,27 @@ type Skill @model {
   id: ID!
   name: String!
 }
+
+input LambdaSkillInput {
+  id: ID
+  name: String!
+}
+
+input LambdaCreateSkillInput {
+  name: String!
+}
+
+input LambdaUpdateSkillInput {
+  id: ID!
+  name: String
+}
+
+input LambdaDeleteSkillInput {
+  id: ID!
+}
+
+type Mutation {
+  lambdaCreateSkill(operation: String!, input: LambdaCreateSkillInput!): String @function(name: "skillfunction-${env}")
+  lambdaUpdateSkill(operation: String!, input: LambdaUpdateSkillInput!): String @function(name: "skillfunction-${env}")
+  lambdaDeleteSkill(operation: String!, input: LambdaDeleteSkillInput!): String @function(name: "skillfunction-${env}")
+}

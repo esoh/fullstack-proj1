@@ -9,13 +9,14 @@ import * as mutations from '../graphql/mutations';
 function EditSkillFormDialog(props) {
 
   async function updateSkill(id, name) {
-    const skillInput = {
+    const lambdaSkillInput = {
+      operation: 'update',
       input: {
         id,
         name,
       }
     };
-    await API.graphql(graphqlOperation(mutations.updateSkill, skillInput))
+    await API.graphql(graphqlOperation(mutations.lambdaUpdateSkill, lambdaSkillInput));
   }
 
   function handleSubmit(event) {

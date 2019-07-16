@@ -1,0 +1,8 @@
+{
+  "arguments": {
+    "operation": "create",
+    "input": {
+      "name": "python"
+    }
+  }
+}

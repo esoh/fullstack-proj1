@@ -21,12 +21,13 @@ export default function CreateSkillFormCard(props) {
   }
 
   const addSkill = async (name) => {
-    const skillInput = {
+    const lambdaSkillInput = {
+      operation: 'create',
       input: {
         name,
       }
     };
-    await API.graphql(graphqlOperation(mutations.createSkill, skillInput))
+    await API.graphql(graphqlOperation(mutations.lambdaCreateSkill, lambdaSkillInput))
   }
 
   return (
