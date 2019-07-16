@@ -83,8 +83,8 @@
 				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "fullstack-proj1-api-dev-20190715230450-deployment",
-					"S3Key": "amplify-builds/skillfunction-71367a7977713550716b-build.zip"
+					"S3Bucket": "fullstack-proj1-api-dev-20190716060134-deployment",
+					"S3Key": "amplify-builds/skillfunction-766b6170657a54516848-build.zip"
 				}
 			}
 		},

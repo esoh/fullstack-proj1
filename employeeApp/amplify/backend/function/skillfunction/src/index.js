@@ -10,7 +10,6 @@ Amplify Params - DO NOT EDIT */
 global.WebSocket = require('ws');
 require('es6-promise').polyfill();
 require('isomorphic-fetch');
-require('graphql-tag');
 
 const region = process.env.REGION;
 const endpoint = process.env.API_EMPLOYEEAPPAPI_GRAPHQLAPIENDPOINTOUTPUT;

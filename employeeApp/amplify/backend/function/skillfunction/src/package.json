@@ -5,10 +5,7 @@
   "main": "index.js",
   "license": "Apache-2.0",
   "dependencies": {
-    "aws-amplify": "^1.1.30",
     "aws-appsync": "^1.8.1",
-    "cross-fetch": "^3.0.4",
-    "dotenv": "^8.0.0",
     "es6-promise": "^4.2.8",
     "graphql-tag": "^2.10.1",
     "isomorphic-fetch": "^2.2.1",
